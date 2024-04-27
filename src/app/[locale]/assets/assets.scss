@@ -1,0 +1,12 @@
+@import '@/app/styles/variables.scss';
+
+.wrapper--center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 24px;
+  @media (min-width: $lg) {
+    margin-top: 64px;
+  }
+}

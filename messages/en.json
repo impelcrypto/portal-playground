@@ -1,0 +1,16 @@
+{
+  "header": {
+    "connectWallet": "Connect Wallet"
+  },
+  "sidebar": {
+    "bridge": "Bridge",
+    "assets": "Assets",
+    "stake": "Stake"
+  },
+  "bridge": {
+    "bridge": "Bridge",
+    "approve": "Approve",
+    "from": "From",
+    "to": "To"
+  }
+}

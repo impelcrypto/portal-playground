@@ -1,0 +1,5 @@
+/.next
+/src/generated/**/*
+/**/*.md
+/**/*.yaml
+/.vercel
