@@ -1,5 +1,6 @@
 import { Header } from '@/components/header/Header';
 import { Sidebar } from '@/components/sidebar/Sidebar';
+import { AntdProvider } from '@/hooks/antdContext';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { Inter } from 'next/font/google';
@@ -28,17 +29,19 @@ export default function LocaleLayout({
 		<html lang={locale}>
 			<body className={inter.className} suppressHydrationWarning={true}>
 				<NextIntlClientProvider locale={locale} messages={messages}>
-					<RainbowProvider>
-						<>
-							<Header />
-							<main>
-								<div className='wrapper--sidebar'>
-									<Sidebar />
-								</div>
-								<div className='wrapper--children'>{children}</div>
-							</main>
-						</>
-					</RainbowProvider>
+					<AntdProvider>
+						<RainbowProvider>
+							<>
+								<Header />
+								<main>
+									<div className='wrapper--sidebar'>
+										<Sidebar />
+									</div>
+									<div className='wrapper--children'>{children}</div>
+								</main>
+							</>
+						</RainbowProvider>
+					</AntdProvider>
 				</NextIntlClientProvider>
 			</body>
 		</html>

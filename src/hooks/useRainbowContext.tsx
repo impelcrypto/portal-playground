@@ -45,4 +45,4 @@ export const RainbowProvider = ({
 	);
 };
 
-export const useOnboard = () => useContext(RainbowContext);
+export const useRainbowKit = () => useContext(RainbowContext);
