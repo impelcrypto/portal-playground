@@ -1,13 +1,18 @@
-import { useEffect } from 'react';
-import { parseEther } from 'viem';
+import { useAntdContext } from '@/hooks/antdContext';
+import { Button, Input } from 'antd';
+import { useState } from 'react';
+import { isAddress, parseEther } from 'viem';
 import {
 	type BaseError,
+	useClient,
 	useSendTransaction,
 	useWaitForTransactionReceipt,
 } from 'wagmi';
 import './transfer.scss';
 
 export const Transfer = (): JSX.Element => {
+	const [toAddress, setToAddress] = useState<string>('');
+	const [amount, setAmount] = useState<number>(0);
 	const {
 		data: hash,
 		sendTransaction,
@@ -19,6 +24,10 @@ export const Transfer = (): JSX.Element => {
 		useWaitForTransactionReceipt({
 			hash,
 		});
+
+	const client = useClient();
+	const nativeToken = client?.chain.nativeCurrency.symbol;
+	const { openNotification } = useAntdContext();
 
 	// const { address } = useAccount();
 	// const { data: erc20Hash, writeContractAsync, isPending, error } = useWriteContract();
@@ -51,31 +60,46 @@ export const Transfer = (): JSX.Element => {
 	//   });
 	// };
 
-	const submit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
-		e.preventDefault();
-		const formData = new FormData(e.target as HTMLFormElement);
-		const to = formData.get('address') as `0x${string}`;
-		const value = formData.get('value') as string;
-		sendTransaction({ to, value: parseEther(value) });
+	const sendNativeToken = async (): Promise<void> => {
+		try {
+			if (!isAddress(toAddress)) {
+				throw Error('Invalid address');
+			}
+			sendTransaction({ to: toAddress, value: parseEther(String(amount)) });
+		} catch (error: any) {
+			openNotification('topRight', 'Error', error.message);
+		}
 	};
 
 	return (
 		<>
-			<form onSubmit={submit}>
-				<input name='address' placeholder='0xA0Cf…251e' required />
+			<div>
+				<Input
+					name='address'
+					placeholder='0xA0Cf…251e'
+					required
+					onChange={(e) => setToAddress(e.target.value)}
+				/>
 				<br />
-				<input name='value' placeholder='0.05' required />
 				<br />
-				<button disabled={isPending} type='submit'>
-					{isPending ? 'Confirming...' : 'Send'}
-				</button>
+				<Input
+					name='value'
+					placeholder='0.05'
+					required
+					onChange={(e) => setAmount(Number(e.target.value))}
+				/>
+				<br />
+				<br />
+				<Button disabled={isPending} type='primary' onClick={sendNativeToken}>
+					{isPending ? 'Confirming...' : `Send ${nativeToken}`}
+				</Button>
 				{hash && <div>Transaction Hash: {hash}</div>}
 				{isConfirming && <div>Waiting for confirmation...</div>}
 				{isConfirmed && <div>Transaction confirmed.</div>}
 				{error && (
 					<div>Error: {(error as BaseError).shortMessage || error.message}</div>
 				)}
-			</form>
+			</div>
 			{/* <button onClick={sendErc20}>send ERC20</button>
       <div>
         {isConfirming && <div>Waiting for confirmation...</div>}
