@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write '**/*.{js,jsx,ts,tsx,css,json,md,mdx,html}'",
+    "format": "biome format --write src/",
+    "check-format": "biome check --apply src/",
     "prepare": "husky"
   },
   "dependencies": {
@@ -29,6 +30,7 @@
     "yarn": "^1.22.22"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.7.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

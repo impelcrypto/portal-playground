@@ -7,16 +7,16 @@ import './header.scss';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export const Header = () => {
-  const t = useTranslations('header');
+	const t = useTranslations('header');
 
-  return (
-    <div className="container--header">
-      <div>
-        <span className="text--logo">Portal</span>
-      </div>
-      <div>
-        <ConnectButton />
-      </div>
-    </div>
-  );
+	return (
+		<div className='container--header'>
+			<div>
+				<span className='text--logo'>Portal</span>
+			</div>
+			<div>
+				<ConnectButton />
+			</div>
+		</div>
+	);
 };
