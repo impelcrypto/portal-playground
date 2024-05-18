@@ -11,12 +11,12 @@ import '@rainbow-me/rainbowkit/styles.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createContext, useContext } from 'react';
 import { WagmiProvider } from 'wagmi';
-import { mainnet } from 'wagmi/chains';
+import { bscTestnet, mainnet } from 'wagmi/chains';
 
 const config = getDefaultConfig({
 	appName: 'Portal dApp',
 	projectId: process.env.NEXT_PUBLIC_WC_ID || '',
-	chains: [astarEvm, astarZkEvm, zKyoto, mainnet, sepoliaTestnet],
+	chains: [bscTestnet, astarEvm, astarZkEvm, zKyoto, mainnet, sepoliaTestnet],
 	ssr: true,
 });
 
