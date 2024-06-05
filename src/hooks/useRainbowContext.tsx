@@ -15,7 +15,7 @@ import { bscTestnet, mainnet } from 'wagmi/chains';
 
 const config = getDefaultConfig({
 	appName: 'Portal dApp',
-	projectId: process.env.NEXT_PUBLIC_WC_ID || '',
+	projectId: '9761436f8aff7e7f24f34dd711430e8e',
 	chains: [bscTestnet, astarEvm, astarZkEvm, zKyoto, mainnet, sepoliaTestnet],
 	ssr: true,
 });
